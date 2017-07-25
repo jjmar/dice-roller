@@ -1,12 +1,13 @@
 from flask import Flask, request, g
 from error import DiceError
 from logic import generate_command, calculate_roll
+import os
 from response import success_response, error_response
 
 app = Flask(__name__)
 
-SECRET_TOKEN = ""
-TEAM_ID = ""
+SECRET_TOKEN = os.environ['DICE_TOKEN']
+TEAM_ID = os.environ['DICE_TEAM_ID']
 
 
 @app.route('/roll', methods=['POST'])
