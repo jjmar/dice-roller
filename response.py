@@ -25,6 +25,33 @@ DEFAULT_RESPONSE = {
         ]
     }
 
+HELP_RESPONSE = {
+        "attachments": [
+            {
+                "fields": [
+                    {
+                        "title": "Command",
+                        "value": "/roll XdY \n" \
+                                 "/roll 2dY [a|adv|advantage]\n" \
+                                 "/roll 2dY [d|disadv|disadvantage]\n" \
+                                 "/roll XdY [+N]\n" \
+                                 "/roll XdY [-N]",
+                        "short": True
+                    },
+                    {
+                        "title": "Result",
+                        "value": "Roll a Y-sided dice X times\n" \
+                                 "Roll 2 dice, take highest\n" \
+                                 "Roll 2 dice, take lowest\n" \
+                                 "Roll and add N to result\n" \
+                                 "Roll and subtract N from result",
+                        "short": True
+                    }
+                ]
+            }
+        ]
+    }
+
 
 def success_response():
     response = DEFAULT_RESPONSE.copy()
@@ -46,6 +73,11 @@ def success_response():
     # Rolls String
     response['attachments'][0]['fields'][1]['value'] = '{}'.format(g._response['rolls'])
 
+    return jsonify(response)
+
+
+def help_response():
+    response = HELP_RESPONSE.copy()
     return jsonify(response)
 
 

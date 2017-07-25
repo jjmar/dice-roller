@@ -2,7 +2,7 @@ from flask import Flask, request, g
 from error import DiceError
 from logic import generate_command, calculate_roll
 import os
-from response import success_response, error_response
+from response import success_response, error_response, help_response
 
 app = Flask(__name__)
 
@@ -13,7 +13,8 @@ TEAM_ID = os.environ['DICE_TEAM_ID']
 @app.route('/roll', methods=['POST'])
 def roll():
     validate_authenticity(request.form['token'], request.form['team_id'])
-    generate_command(request.form)
+    if not generate_command(request.form):
+        return help_response()
     calculate_roll()
     return success_response()
 

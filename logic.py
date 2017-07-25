@@ -26,6 +26,9 @@ def generate_command(data):
     if len(arguments) == 0 or len(arguments) > 3:
         raise DiceError(INVALID_USAGE_ERROR)
 
+    if arguments[0] == 'help':
+        return False
+
     # Parse dice roll
     diceRoll = re.search(DICE_REGEX, arguments[0])
     if not diceRoll:
@@ -58,6 +61,8 @@ def generate_command(data):
             arguments.remove(modifier.string)
 
     g._command = command
+
+    return True
 
 
 def calculate_roll():
